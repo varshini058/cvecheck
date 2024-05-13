@@ -39,7 +39,7 @@ for item in dictlist:
 df = pd.DataFrame(idlist)
 #print(df.head(3))
 
-//code to connect to post gres database and creating cve_summary table
+//code to connect to mysql database and creating cve_summary table
 engine = create_engine('mysql+mysqlconnector://[user]:[pass]@[host]:[port]/[schema]', echo=False)
 df.to_sql(name='cve_summary', con=engine, if_exists = 'append', index=False)
                     
