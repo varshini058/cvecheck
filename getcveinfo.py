@@ -1,9 +1,8 @@
 import requests
 import json
 import pandas as pd
+import mysql.connector
 from sqlalchemy import create_engine
-import psycopg2 
-import io
 url = "https://services.nvd.nist.gov/rest/json/cves/2.0/?lastModStartDate=2024-05-08T13:00:00.000%2B01:00&lastModEndDate=2024-05-10T13:36:00.000%2B01:00"
 
 payload = {}
@@ -41,19 +40,6 @@ df = pd.DataFrame(idlist)
 #print(df.head(3))
 
 //code to connect to post gres database and creating cve_summary table
-engine = create_engine('postgresql://username:password@localhost:5432/mydatabase') //sample connection details
-# Drop old table and create new empty table
-df.head(0).to_sql('cve_summary', engine, if_exists='replace',index=False)
-
-conn = engine.raw_connection()
-cur = conn.cursor()
-output = io.StringIO()
-df.to_csv(output, sep='\t', header=False, index=False)
-output.seek(0)
-contents = output.getvalue()
-cur.copy_from(output, 'cve_summary', null="") # null values become ''
-conn.commit()
-cur.close()
-conn.close()
-
+engine = create_engine('mysql+mysqlconnector://[user]:[pass]@[host]:[port]/[schema]', echo=False)
+df.to_sql(name='cve_summary', con=engine, if_exists = 'append', index=False)
                     
