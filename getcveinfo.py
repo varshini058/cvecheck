@@ -43,7 +43,7 @@ df = pd.DataFrame(idlist)
 //code to connect to post gres database and creating cve_summary table
 engine = create_engine('postgresql://username:password@localhost:5432/mydatabase') //sample connection details
 # Drop old table and create new empty table
-df.head(0).to_sql('table_name', engine, if_exists='replace',index=False)
+df.head(0).to_sql('cve_summary', engine, if_exists='replace',index=False)
 
 conn = engine.raw_connection()
 cur = conn.cursor()
