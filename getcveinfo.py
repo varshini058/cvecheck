@@ -37,7 +37,7 @@ for item in dictlist:
      
 #print(idlist)    
 df = pd.DataFrame(idlist)
-print(df.head(3))
+#print(df.head(3))
 
 //code to connect to post gres database and creating cve_summary table
 engine = create_engine('postgresql://username:password@localhost:5432/mydatabase') //sample connection details
