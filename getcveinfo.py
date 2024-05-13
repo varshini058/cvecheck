@@ -1,6 +1,7 @@
 import requests
 import json
 import pandas as pd
+from sqlalchemy import create_engine
 
 url = "https://services.nvd.nist.gov/rest/json/cves/2.0/?lastModStartDate=2024-05-08T13:00:00.000%2B01:00&lastModEndDate=2024-05-10T13:36:00.000%2B01:00"
 
@@ -38,14 +39,8 @@ for item in dictlist:
 df = pd.DataFrame(idlist)
 print(df.head(3))
 
-#filtered_keys=['id','sourceidentifier']
-
-        # Filter5ed list of dictionaries
-#filtered_dict_list = [{k: v for k, v in item.items() if k in filtered_keys} for item in dictlist]
-
-        # Convert filtered list of dictionaries to JSON string
-#on_string = json.dumps(dictlist)
-#print(json_string) 
-
+//code to connect to post gres database and creating cve_summary table
+engine = create_engine('postgresql://username:password@localhost:5432/mydatabase') //sample connection details
+df.to_sql('cve_summary', engine)
 
                     
