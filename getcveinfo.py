@@ -51,7 +51,7 @@ output = io.StringIO()
 df.to_csv(output, sep='\t', header=False, index=False)
 output.seek(0)
 contents = output.getvalue()
-cur.copy_from(output, 'table_name', null="") # null values become ''
+cur.copy_from(output, 'cve_summary', null="") # null values become ''
 conn.commit()
 cur.close()
 conn.close()
